@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment3.Utility
 {
+    //Node Class for each node in the Linked List:
     public class Node
     {
         public User Data { get; set; }
