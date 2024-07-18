@@ -73,9 +73,104 @@ namespace Assignment3.Utility
             }
             count++;
         }
+        //Add method: Adds a new node with the value to specified position in the linked list
         public void Add(User value, int index)
         {
-
+            //Index out of range exception:
+            if (index<0 & index>count)
+            {
+                throw new IndexOutOfRangeException("Index is out of range!");
+            }
+            //If index = 0 add value to first position:
+            if (index == 0)
+            {
+                AddFirst(value);
+            }
+            //If index = count (last position) add value to last position:
+            else if (index == count)
+            {
+                AddLast(value);
+            }
+            //All other positions:
+            else
+            {
+                Node newNode = new Node(value);
+                Node current = head;
+                //For loop from index 0 to node before target index:
+                for (int i = 0; i < index - 1; i++)
+                {
+                    //node before target index:
+                    current = current.Next;
+                }
+                newNode.Next = current.Next;
+                //Setting current's next to newNode value:
+                current.Next = newNode;
+                count++;
+            }
         }
+        //Replace method: Replaces value at specific position in linked list
+        public void Replace(User value, int index)
+        {
+            //Index out of range exception:
+            if(index<0 & index>count)
+            {
+                throw new IndexOutOfRangeException("Index is out of range!");
+            }
+
+            Node current = head;
+            //For loop from index 0 to target node:
+            for (int i = 0;i < index; i++)
+            {
+                //Target node:
+                current = current.Next;
+            }
+            //Setting current node to value:
+            current.Data = value;
+        }
+        //Count method: Returns total count of items in the list
+        public int Count()
+        {
+            return count;
+        }
+        //RemoveFirst method: Removes first node from linked list
+        public void RemoveFirst()
+        {
+            //Empty List, Invalid Operation Exception:
+            if (IsEmpty())
+            {
+                throw new InvalidOperationException("Cannot Remove! List is empty!");
+            }
+            //Setting head to next node:
+            head = head.Next;
+            count--;
+        }
+        //RemoveLast method: removes last node from linked list
+        public void RemoveLast()
+        {
+            //Empty List, Invalid Operation Exception:
+            if (IsEmpty())
+            {
+                throw new InvalidOperationException("Cannot Remove! List is empty!");
+            }
+            //if only 1 node in list, set head to null:
+            if (count == 1)
+            {
+                head = null;
+            }
+            else
+            {
+                Node current = head;
+                //while loop goes to second last node:
+                while (current.Next.Next != null)
+                {
+                    //second last node:
+                    current = current.Next;
+                }
+                //sets last to null:
+                current.Next = null;
+            }
+            count--;
+        }
+
     }
 }
