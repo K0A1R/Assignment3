@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment3.Utility
 {
-    internal class SSL
+    internal class SLL
     {
     }
 }

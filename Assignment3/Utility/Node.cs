@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Assignment3.Utility
 {
-    internal class Node
+    public class Node
     {
+        public User Data { get; set; }
+        public Node Next { get; set; }
+        public Node(User data, Node next)
+        {
+            Data = data;
+            Next = null;
+        }
     }
 }
