@@ -12,10 +12,10 @@ namespace Assignment3.Utility
         public User Data { get; set; }
         public Node Next { get; set; }
         //Constructor:
-        public Node(User data, Node next)
+        public Node(User data, Node next = null)
         {
             Data = data;
-            Next = null;
+            Next = next;
         }
     }
 }

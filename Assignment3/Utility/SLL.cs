@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Assignment3.ProblemDomain;
 
 namespace Assignment3.Utility
 {
@@ -28,7 +28,7 @@ namespace Assignment3.Utility
         }
         //clear method: Clears the list
         //Reset head, reset count
-        public void clear()
+        public void Clear()
         {
             head = null;
             count = 0;
@@ -77,7 +77,7 @@ namespace Assignment3.Utility
         public void Add(User value, int index)
         {
             //Index out of range exception:
-            if (index<0 & index>count)
+            if (index<0 || index >count)
             {
                 throw new IndexOutOfRangeException("Index is out of range!");
             }
@@ -112,7 +112,7 @@ namespace Assignment3.Utility
         public void Replace(User value, int index)
         {
             //Index out of range exception:
-            if(index<0 & index>count)
+            if(index < 0 || index >= count)
             {
                 throw new IndexOutOfRangeException("Index is out of range!");
             }
@@ -157,6 +157,7 @@ namespace Assignment3.Utility
             {
                 head = null;
             }
+            //More than 1 node in list:
             else
             {
                 Node current = head;
@@ -171,6 +172,73 @@ namespace Assignment3.Utility
             }
             count--;
         }
-
+        //Remove method: Removes value from specified position in linked list
+        public void Remove(int index)
+        {
+            //Index out of range exception:
+            if (index < 0 || index >= count)
+            {
+                throw new IndexOutOfRangeException("Index is out of range!");
+            }
+            if (index == 0)
+            {
+                RemoveFirst();
+            }
+            else if (index == count - 1)
+            {
+                RemoveLast();
+            }
+            else
+            {
+                Node current = head;
+                //for loop from index 0 to 1 node before target index:
+                for (int i = 0; i < index - 1; i++)
+                {
+                    //node before target index:
+                    current = current.Next;
+                }
+                //Set current's next to node after target index:
+                current.Next = current.Next.Next;
+                count--;
+            }
+        }
+        //GetValue method: Gets the value at the specified index
+        public User GetValue(int index)
+        {
+            //Index out of range exception:
+            if (index < 0 || index >= count)
+            {
+                throw new IndexOutOfRangeException("Index is out of range!");
+            }
+            Node current = head;
+            //for loop index 0 to target index:
+            for (int i = 0; i < index; i++)
+            {
+                //Target index:
+                current = current.Next;
+            }
+            return current.Data;
+        }
+        //IndexOf method: Returns the index of the first occurance of the value
+        public int IndexOf(User value)
+        {
+            Node current = head;
+            for (int i = 0; i < count; i++)
+            {
+                if (current.Data.Equals(value))
+                {
+                    //return index:
+                    return i;
+                }
+                current = current.Next;
+            }
+            //if value is not found:
+            return -1;
+        }
+        //Contains method: Go through nodes and check if one has value.
+        public bool Contains(User value)
+        {
+            return IndexOf(value) != -1;
+        }
     }
 }
